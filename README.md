@@ -1,2 +1,0 @@
-# manish.github.io
-Portfolio
