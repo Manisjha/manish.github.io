@@ -1,0 +1,753 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Manish Kumar Jha | Construction Data Scientist & Analyst</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <style>
+        /* Custom Tailwind Configuration */
+        :root {
+            --color-primary: #34D399; /* Emerald-400 */
+            --color-secondary: #67E8F9; /* Cyan-300 */
+        }
+        .bg-primary { background-color: var(--color-primary); }
+        .text-primary { color: var(--color-primary); }
+        .border-primary { border-color: var(--color-primary); }
+        
+        /* Dark Theme Backgrounds */
+        .body-bg { background-color: #020617; } /* Slate-950 */
+        .card-bg { background-color: #1E293B; } /* Slate-800 */
+        .header-bg { background-color: #0F172A; } /* Slate-900 */
+        
+        /* Custom Animations */
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        .animate-fadeIn { animation: fadeIn 0.6s ease-out forwards; }
+        
+        /* Interactive Scroll Styling */
+        html { scroll-behavior: smooth; }
+
+        /* CRITICAL PERFORMANCE FIXES */
+        .accordion-content {
+            max-height: 0;
+            overflow: hidden;
+            will-change: max-height; 
+            transition: max-height 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+        }
+        .accordion-content.active {
+            padding-top: 1rem;
+            padding-bottom: 1rem;
+        }
+
+        /* Interactive Elements */
+        .filter-tag {
+            transition: all 0.2s ease;
+            cursor: pointer;
+        }
+        .filter-tag.active {
+            transform: scale(1.05);
+            background-color: var(--color-primary);
+            color: #020617;
+            box-shadow: 0 4px 15px rgba(52, 211, 153, 0.4);
+        }
+        .skill-tag {
+            background-color: #1E293B; 
+            border: 1px solid #334155; 
+            color: var(--color-secondary);
+            padding: 0.5rem 1rem;
+            border-radius: 9999px;
+            font-size: 0.875rem;
+            font-weight: 500;
+            transition: background-color 0.2s;
+            cursor: default;
+        }
+        .skill-tag:hover {
+            background-color: #334155;
+        }
+        /* Hover state for accordion items */
+        .project-item, .experience-item {
+            transition: transform 0.2s ease, box-shadow 0.2s ease;
+            cursor: pointer;
+        }
+        .project-item:hover, .experience-item:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 25px rgba(0, 0, 0, 0.3);
+            border-color: var(--color-primary);
+        }
+        .metric-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(52, 211, 153, 0.2);
+        }
+        .logo-placeholder {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.5rem;
+            margin-right: 1rem;
+            color: white;
+            flex-shrink: 0;
+        }
+    </style>
+</head>
+
+<body class="body-bg text-gray-100 font-sans antialiased selection:bg-emerald-500 selection:text-white">
+
+<header id="navbar" class="sticky top-0 z-50 header-bg bg-opacity-90 shadow-2xl backdrop-blur-md transition-all duration-300 border-b border-slate-800">
+    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 flex justify-between items-center py-4">
+        <a href="#hero" class="text-3xl font-extrabold text-primary hover:text-cyan-300 transition-colors">
+            M. Jha <span class="text-xl font-light text-gray-400 hidden sm:inline">| Construction Data Analyst</span>
+        </a>
+        
+        <nav class="hidden lg:flex space-x-6 text-lg font-medium">
+            <a href="#summary" class="nav-link text-gray-300 hover:text-primary transition-colors">Summary</a>
+            <a href="#metrics" class="nav-link text-gray-300 hover:text-primary transition-colors">ASBL Impact</a>
+            <a href="#experience" class="nav-link text-gray-300 hover:text-primary transition-colors">Experience</a>
+            <a href="#data_projects" class="nav-link text-gray-300 hover:text-primary transition-colors">Portfolio</a>
+            <a href="#skills" class="nav-link text-gray-300 hover:text-primary transition-colors">Tool Stack</a>
+            <a href="#certifications" class="nav-link text-gray-300 hover:text-primary transition-colors">Certifications</a>
+            <a href="#contact" class="nav-link bg-primary text-gray-900 px-4 py-1 rounded-full font-bold hover:bg-cyan-300 transition-all transform hover:scale-105">Contact <i class="fas fa-arrow-right ml-1"></i></a>
+        </nav>
+        
+        <button id="menu-toggle" class="lg:hidden text-gray-100 focus:outline-none p-2 rounded-md hover:bg-slate-700">
+            <i class="fas fa-bars text-2xl"></i>
+        </button>
+    </div>
+</header>
+
+<div id="mobile-menu" class="fixed inset-0 header-bg z-[60] transform translate-x-full transition-transform duration-300 lg:hidden">
+    <div class="p-6">
+        <button id="close-menu" class="absolute top-4 right-4 text-primary text-4xl focus:outline-none">&times;</button>
+        <div class="text-3xl font-bold mb-10 text-primary mt-12 border-b border-slate-700 pb-3">Navigation</div>
+        <ul class="space-y-6 text-xl">
+            <li><a href="#summary" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-chart-area mr-3"></i> Data Summary</a></li>
+            <li><a href="#metrics" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-dollar-sign mr-3"></i> ASBL Impact</a></li>
+            <li><a href="#experience" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-briefcase mr-3"></i> Experience</a></li>
+            <li><a href="#data_projects" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-database mr-3"></i> Portfolio</a></li>
+            <li><a href="#skills" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-cogs mr-3"></i> Tool Stack</a></li>
+            <li><a href="#certifications" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-certificate mr-3"></i> Certifications</a></li>
+            <li><a href="#contact" class="mobile-nav-link block p-2 hover:text-primary transition-colors"><i class="fas fa-envelope mr-3"></i> Connect</a></li>
+        </ul>
+    </div>
+</div>
+
+<main class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-16">
+
+    <section id="hero" class="py-16 md:py-24 text-center animate-fadeIn">
+        <h1 class="text-6xl md:text-8xl font-extrabold leading-none tracking-tight">
+            Manish Kumar Jha
+        </h1>
+        <p class="text-xl md:text-2xl font-light mt-2 text-gray-400">
+            Civil Engineer | Structural Engineer | <strong class="text-primary">Construction Manager</strong>
+        </p>
+        <p class="text-3xl md:text-5xl font-light mt-4 text-secondary">
+            Construction Data Analyst | Predictive Modeling & Structural ROI
+        </p>
+        <div class="mt-8 flex flex-wrap justify-center space-x-4 text-lg text-gray-400">
+            <a href="mailto:Manis.jha1@gmail.com" class="hover:text-primary transition-colors" aria-label="Email"><i class="fas fa-envelope mr-1"></i> Manis.jha1@gmail.com</a> 
+            <span class="text-primary">|</span>
+            <a href="tel:+919372765562" class="hover:text-primary transition-colors" aria-label="Phone"><i class="fas fa-phone mr-1"></i> +91-93727-65562</a>
+            <span class="text-primary">|</span>
+            <a href="https://www.linkedin.com/in/er-manish-kumar-jha/" target="_blank" class="hover:text-primary transition-colors" aria-label="LinkedIn"><i class="fab fa-linkedin mr-1"></i> Manish Kumar Jha</a>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="summary" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-center text-primary"><i class="fas fa-chart-area mr-3"></i> Executive Analytical Summary</h2>
+        <div class="grid grid-cols-1 lg:grid-cols-3 gap-8">
+            <div class="lg:col-span-2 card-bg p-8 rounded-xl shadow-2xl border-l-4 border-secondary">
+                <p class="text-lg leading-relaxed text-gray-300">
+                    Manish is a highly quantitative Civil Engineer from <strong class="text-primary">IIT Bombay (9.13 CPI)</strong> pivoting his deep domain knowledge into <strong class="text-primary">Construction Data Science</strong>. He specializes in <strong class="text-primary">Predictive Analytics</strong> and process optimization, currently building an <strong class="text-primary">Autonomous Scheduler (Python-based)</strong> at <strong class="text-primary">ASBL Hyderabad</strong> to forecast project timelines based on live resource data.
+                    <br><br>
+                    His experience spans large-scale project execution (managing <strong class="text-primary">₹100Mn budgets</strong> and <strong class="text-primary">50+ workforce</strong>) and rigorous <strong class="text-primary">Finite Element Analysis (FEA)</strong>, making him uniquely qualified to derive value from construction lifecycle data—from resource allocation patterns to long-term structural integrity metrics (LCC, NDT data).
+                </p>
+            </div>
+            <div class="lg:col-span-1 card-bg p-6 rounded-xl shadow-2xl border-l-4 border-primary">
+                <h3 class="text-xl font-bold text-gray-100 mb-4"><i class="fas fa-graduation-cap mr-2"></i> Education</h3>
+                <ul class="space-y-4 text-gray-300">
+                    <li class="flex items-start">
+                        <div class="logo-placeholder bg-red-600"><i class="fas fa-university"></i></div>
+                        <div>
+                            <strong class="text-lg text-primary">Post Graduation (2025)</strong><br>
+                            IIT Bombay<br>
+                            <span class="text-sm font-semibold">CPI: 9.13</span>
+                        </div>
+                    </li>
+                    <li class="flex items-start">
+                        <div class="logo-placeholder bg-blue-600"><i class="fas fa-school"></i></div>
+                        <div>
+                            <strong class="text-lg text-primary">Graduation (2021)</strong><br>
+                            Tribhuvan University | <span class="font-semibold">Institute Of Engineering ERC</span><br>
+                            <span class="text-sm font-semibold">Result: First Division</span>
+                        </div>
+                    </li>
+                    <small class="text-gray-500 block mt-2">
+                        *Note: Icons are placeholders. Replace with actual college logos for deployment.
+                    </small>
+                </ul>
+                <a href="#skills" class="mt-4 inline-block text-primary hover:text-secondary font-semibold text-sm">
+                    View Analytical Coursework <span aria-hidden="true">&rarr;</span>
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="metrics" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-center text-primary"><i class="fas fa-chart-line mr-3"></i> ASBL Project Analytics & Impact</h2>
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-6 text-center">
+            
+            <div class="card-bg p-6 rounded-xl shadow-xl transition transform duration-300 border-b-4 border-secondary metric-card">
+                <p class="text-5xl font-extrabold text-secondary">4.7M+</p>
+                <p class="text-xl mt-2 font-bold text-gray-300">Sq. Ft. Analyzed</p>
+                <p class="text-sm mt-1 text-gray-400">Total floor area covered across ASBL Loft, Spire, and Spectra (120+ floors).</p>
+            </div>
+
+            <div class="card-bg p-6 rounded-xl shadow-xl transition transform duration-300 border-b-4 border-primary metric-card">
+                <p class="text-5xl font-extrabold text-primary">40,000+</p>
+                <p class="text-xl mt-2 font-bold text-gray-300">Records Modeled</p>
+                <p class="text-sm mt-1 text-gray-400">Activity records aggregated & processed using MongoDB & Python for granular tracking.</p>
+            </div>
+
+            <div class="card-bg p-6 rounded-xl shadow-xl transition transform duration-300 border-b-4 border-secondary metric-card">
+                <p class="text-5xl font-extrabold text-secondary">12%</p>
+                <p class="text-xl mt-2 font-bold text-gray-300">Deviation Identified</p>
+                <p class="text-sm mt-1 text-gray-400">Benchmarked 900+ slab cycles to pinpoint 2–7 day overruns and drive 20% forecast improvement.</p>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="experience" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-briefcase mr-3"></i> Professional Experience</h2>
+        <div class="space-y-6" id="experience-accordion">
+            
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-red-500 experience-item">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">ASBL Hyderabad <span class="text-lg font-normal text-red-400">| Analyst, Project Management Office</span></p>
+                        <p class="text-sm text-gray-400">(July'25 - Present)</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-red-500 transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-3 leading-relaxed">
+                        <li>Conducted data-driven analysis on RCC cycle durations for three high-rise construction projects—<strong>ASBL Loft, Spire, and Spectra</strong>—covering over <strong>4.7 million sq.ft</strong> of total floor area, aggregating and modeling <strong>40,000+ activity records</strong> across <strong>120+ floors</strong> using <strong>MongoDB and Python</strong>, with insights visualized in <strong>PowerBI</strong>.</li>
+                        <li>Benchmarked over <strong>900 slab cycles</strong>, identifying a mean schedule deviation of <strong>12%</strong>, with cycle overruns from <strong>2–7 days</strong> at peak, and developed <strong>PowerBI dashboards</strong> to visualize adherence patterns across the portfolio.</li>
+                        <li>Tracked and quantified the top work packages responsible for <strong>75% of schedule delays</strong>, mapping deviation frequencies to specific <strong>8 tower segments</strong> and <strong>30+ floors</strong> for actionable hotspot analysis.</li>
+                        <li>Diagnosed root causes such as material supply delays and labor allocation gaps, pinpointing that <strong>42% of deviations</strong> recurred between <strong>floors 12–27</strong>, with measurable impacts on project completion.</li>
+                        <li>Delivered actionable recommendations to project leadership, supporting a targeted <strong>20% improvement</strong> in RCC cycle forecasting accuracy, enabling more effective risk mitigation through data-driven <strong>PowerBI analytics</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-blue-500 experience-item">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Hone Structural Health Monitoring Pvt. Ltd <span class="text-lg font-normal text-blue-400">| Trainee Structural Engineer</span></p>
+                        <p class="text-sm text-gray-400">(May'24–July'24)</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-blue-500 transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Monitored <strong>Box Girder Bridge structural health</strong> using precise <strong>NDT tests</strong>, ensuring <strong>safety</strong> and <strong>stability</strong>.</li>
+                        <li>Measured <strong>deflection</strong>, <strong>tilt</strong>, and damping using advanced tools for accurate structural assessment.</li>
+                        <li>Identified structural issues via monitoring & analysis to safeguard <strong>bridge integrity</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-yellow-500 experience-item">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Bhagwati Construction Pvt. Ltd <span class="text-lg font-normal text-yellow-400">| Head of Construction Department</span></p>
+                        <p class="text-sm text-gray-400">(July'22–July'23)</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-yellow-500 transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <p class="font-semibold mb-2 text-gray-100">Project Portfolio Highlights:</p>
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li><strong>B&C Medical College:</strong> Oversaw construction with a team of <strong>25+</strong>, managed site <strong>procurement, billing</strong>, and documentation.</li>
+                        <li><strong>Purwanchal Cancer Hospital:</strong> Handled <strong>procurement, contracts</strong>, and billing to align with budget and schedule goals.</li>
+                        <li><strong>Hotel Atrium (5-Star):</strong> Monitored construction with a <strong>50+ team</strong>. Conducted <strong>QA/QC</strong> as per Consultant instructions & verified construction bills.</li>
+                        <li><strong>Takshashila School:</strong> Oversaw construction including an <strong>85 ft × 45 ft</strong> swimming pool. Managed <strong>vendors, procurement, QA/QC</strong>, and payments.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-teal-500 experience-item">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Maxlife Multi-speciality Hospital <span class="text-lg font-normal text-teal-400">| Project Manager</span></p>
+                        <p class="text-sm text-gray-400">(July'21–July'22)</p>
+                    </div>
+                    <i class="fas fa-chevron-down text-teal-500 transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Designed & planned 100-bed hospital infrastructure, leading a <strong>5+ member team</strong> in compliance with WHO guidelines.</li>
+                        <li>Executed project management for timely construction with <strong>45+ workforce</strong> and <strong class="text-primary">₹100Mn</strong> budget.</li>
+                        <li>Oversaw quality control, procurement, and finances, ensuring compliance & cost-efficiency.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+    
+    <section id="data_projects" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-database mr-3"></i> Data Analysis & Engineering Portfolio</h2>
+        
+        <div class="mb-8 p-4 card-bg rounded-xl shadow-inner border border-slate-700">
+            <p class="text-lg font-semibold mb-3 text-gray-300">Filter Projects by Analytical Technique:</p>
+            <div id="project-filters" class="flex flex-wrap gap-3">
+                <button class="filter-tag bg-slate-700 text-primary px-4 py-2 rounded-lg font-bold" data-filter="all">Show All</button>
+                <button class="filter-tag bg-slate-700 text-primary px-4 py-2 rounded-lg" data-filter="Python/Automation">Python/Automation</button>
+                <button class="filter-tag bg-slate-700 text-primary px-4 py-2 rounded-lg" data-filter="FEA/Modeling">FEA & Advanced Modeling</button>
+                <button class="filter-tag bg-slate-700 text-primary px-4 py-2 rounded-lg" data-filter="LCC/Sustainability">LCC & Environmental Data</button>
+                <button class="filter-tag bg-slate-700 text-primary px-4 py-2 rounded-lg" data-filter="Excel/ProcessMining">Excel & Process Audits</button>
+            </div>
+        </div>
+
+        <div class="space-y-6" id="project-accordion">
+
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-secondary project-item" data-categories="LCC/Sustainability, Excel/ProcessMining, Structural Design">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Life Cycle Cost Modeling for Short-Span Bridges</p>
+                        <p class="text-sm text-gray-400">M.Tech. Thesis Project (July'24–Present) | Supervisor: <strong>Prof. Siddhartha Ghosh</strong></p>
+                    </div>
+                    <i class="fas fa-chevron-down text-secondary transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Modeled, analyzed & designed short-span bridges with <strong>PSC & steel girders</strong> for varying <strong>widths & spans</strong>.</li>
+                        <li>Prepared detailed <strong>life cycle cost analyses</strong> comparing <strong>cost-effectiveness & sustainability</strong>.</li>
+                        <li>Evaluated <strong>environmental impact</strong> to identify alternatives with lower <strong>carbon footprints</strong>.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-primary project-item" data-categories="FEA/Modeling, Research, Programming">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">FEA of Ductility Enhancement (CFRP)</p>
+                        <p class="text-sm text-gray-400">Finite Element Method (Jan'24–Apr’24) | Advisor: <strong>Prof. Yogesh M. Desai</strong></p>
+                    </div>
+                    <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Executed complex simulation using <strong>ABAQUS</strong> to quantify structural enhancement, demonstrating <strong>13x higher load capacity</strong> in CFRP-reinforced beams.</li>
+                        <li>Improved stress distribution, enhancing structural resilience.</li>
+                    </ul>
+                </div>
+            </div>
+            
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-secondary project-item" data-categories="Excel/ProcessMining, Programming, Bridge Engineering">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Automated Design Force Calculator (IRC Guidelines)</p>
+                        <p class="text-sm text-gray-400">Bridge Engineering (Jan'24–Apr’24) | Advisor: <strong>Prof. Alok Goyal</strong></p>
+                    </div>
+                    <i class="fas fa-chevron-down text-secondary transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Created an <strong>Excel program</strong> to calculate design forces for <strong>slab, girders, pier cap, and pier bottom</strong> as per IRC guidelines.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <div class="card-bg rounded-xl shadow-xl overflow-hidden border-l-4 border-primary project-item" data-categories="FEA/Modeling, BIM/CAD, Structural Design">
+                <button class="accordion-header w-full text-left p-6 flex justify-between items-center bg-slate-800 hover:bg-slate-700 transition-colors focus:outline-none">
+                    <div>
+                        <p class="text-xl font-bold text-gray-100">Modeling and Analysis of Multi-Storey Community Building</p>
+                        <p class="text-sm text-gray-400">B.Tech. Major Project (Mar'20–Mar'21) | Supervisor: <strong>Prof. Yuman Shakya</strong></p>
+                    </div>
+                    <i class="fas fa-chevron-down text-primary transition-transform duration-300"></i>
+                </button>
+                <div class="accordion-content">
+                    <ul class="list-disc ml-8 text-gray-300 space-y-2">
+                        <li>Modeled a <strong>G+5 RC building</strong> in <strong>CSI ETABS</strong> using architectural plans from <strong>AutoCAD</strong>.</li>
+                        <li>Designed structural members with <strong>ETABS & SAFE</strong>, validating results through <strong>manual Excel checks</strong>.</li>
+                        <li>Created detailed <strong>structural drawings</strong> with quantity estimation, ensuring accuracy & code compliance.</li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="positions" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-sitemap mr-3"></i> Leadership & Responsibility</h2>
+        <div class="space-y-6">
+            <div class="card-bg p-6 rounded-xl shadow-xl border-l-4 border-secondary">
+                <p class="text-xl font-bold text-gray-100">Teaching Assistant, CE-3618 Advanced Structural Design | IIT Bombay</p>
+                <p class="text-sm text-gray-400 mb-3">(Jan'25–Apr'25)</p>
+                <ul class="list-disc ml-6 text-gray-300 space-y-1">
+                    <li>Facilitated learning of <strong>advanced steel structure design</strong> as per <strong>IS 800:2007</strong> and <strong>IS 808:2021</strong>.</li>
+                    <li>Conducted tutorial sessions, graded assignments, quizzes, and exams; provided constructive feedback.</li>
+                </ul>
+            </div>
+             <div class="card-bg p-6 rounded-xl shadow-xl border-l-4 border-secondary">
+                <p class="text-xl font-bold text-gray-100">Teaching Assistant, CE-465 Numerical Methods in Civil Engineering | IIT Bombay</p>
+                <p class="text-sm text-gray-400 mb-3">(Aug'24–Present)</p>
+                <ul class="list-disc ml-6 text-gray-300 space-y-1">
+                    <li>Guided <strong>80+ students</strong> during tutorial sessions to solve numerical methods problems.</li>
+                    <li>Evaluated assignments, quizzes, and exams, providing constructive feedback for improvement.</li>
+                </ul>
+            </div>
+            
+            <div class="card-bg p-6 rounded-xl shadow-xl border-l-4 border-secondary">
+                <p class="text-xl font-bold text-gray-100">Executive Events Manager, Earthquake Engineering Research Institute | IIT Bombay</p>
+                <p class="text-sm text-gray-400 mb-3">(Aug'24–Present)</p>
+                <ul class="list-disc ml-6 text-gray-300 space-y-1">
+                    <li>Conducted <strong>Earthquake Enigma’24 Quiz</strong> with <strong>450+ participants</strong> from <strong>30+ colleges</strong> including IITs, NITs, and IISc.</li>
+                </ul>
+            </div>
+            
+            <div class="card-bg p-6 rounded-xl shadow-xl border-l-4 border-secondary">
+                <p class="text-xl font-bold text-gray-100">Vice President, Free Student Union | Eastern Regional Campus</p>
+                <p class="text-sm text-gray-400 mb-3">(May'20–Apr'21)</p>
+                <ul class="list-disc ml-6 text-gray-300 space-y-1">
+                    <li>Represented a student body of <strong>2000+ students</strong> and served as a key liaison with administration.</li>
+                    <li>Organised campus-wide student events and addressed student issues with relevant authorities.</li>
+                </ul>
+            </div>
+            
+            <div class="card-bg p-6 rounded-xl shadow-xl border-l-4 border-secondary">
+                <p class="text-xl font-bold text-gray-100">General Secretary, Free Student Union | Eastern Regional Campus</p>
+                <p class="text-sm text-gray-400 mb-3">(May'19–Apr'20)</p>
+                <ul class="list-disc ml-6 text-gray-300 space-y-1">
+                    <li>Coordinated student meetings, documented minutes, and ensured effective communication.</li>
+                    <li>Supported planning and execution of academic and cultural student initiatives across campus.</li>
+                </ul>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="skills" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-cogs mr-3"></i> Analytical & Technical Tool Stack</h2>
+        <div class="card-bg p-8 rounded-xl shadow-2xl space-y-8">
+            
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 border-l-4 border-secondary pl-4">Data, Programming, & Automation (ETL/Modeling) <i class="fas fa-laptop-code ml-2 text-gray-500"></i></h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">SQL</span>
+                    <span class="skill-tag">MongoDB (NoSQL)</span>
+                    <span class="skill-tag">Python (DataCamp)</span>
+                    <span class="skill-tag">Power BI (Visualization)</span>
+                    <span class="skill-tag">MS Excel (Advanced Checks)</span>
+                    <span class="skill-tag">MATLAB</span>
+                    <span class="skill-tag">Primavera (Data Source)</span>
+                    <span class="skill-tag">MS Project (Data Source)</span>
+                    <span class="skill-tag">One Click LCA (Sustainability Data)</span>
+                    <span class="skill-tag">SFEAP Software</span>
+                    <span class="skill-tag">LATEX</span>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 border-l-4 border-primary pl-4">Core FEA & Structural Modeling (Domain Knowledge) <i class="fas fa-building-columns ml-2 text-gray-500"></i></h3>
+                <div class="flex flex-wrap gap-3">
+                    <span class="skill-tag">CSI ETABS / SAFE / Detail</span>
+                    <span class="skill-tag">ABAQUS (FEA)</span>
+                    <span class="skill-tag">Midas Civil</span>
+                    <span class="skill-tag">SOFiSTiK / IDEA StatiCa</span>
+                    <span class="skill-tag">STAAD Pro</span>
+                    <span class="skill-tag">Tekla Structures</span>
+                    <span class="skill-tag">Autodesk AutoCAD / Revit</span>
+                </div>
+            </div>
+
+            <div>
+                <h3 class="text-2xl font-semibold mb-4 border-l-4 border-secondary pl-4">Relevant IIT Coursework (Foundational Knowledge) <i class="fas fa-book-open ml-2 text-gray-500"></i></h3>
+                <div class="text-gray-400 text-sm space-y-1">
+                    <strong>Structural Dynamics</strong>, <strong>Finite Element Methods</strong>, <strong>Structural Design Lab</strong>, <strong>Bridge Engineering</strong>, <strong>Prestressed Concrete Design</strong>, <strong>Introduction to Earthquake Engineering</strong>, <strong>Advanced Solid Mechanics</strong>, <strong>Structural Reliability and Risk Analysis</strong>, <strong>Sustainability Principles and Practices</strong>, <strong>Construction Planning and Control</strong>.
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="certifications" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-certificate mr-3"></i> Certifications & Workshops</h2>
+        <div class="card-bg p-8 rounded-xl shadow-2xl space-y-4">
+            <ul class="list-disc ml-6 text-gray-300 space-y-2">
+                <li>Participated in <strong>1-Day International Symposium on Design of Tall Buildings</strong>. (2024)</li>
+                <li>Completed <strong>Advanced ETABS V2019: 52-Story Tower with Different Seismic Systems</strong> on Udemy. (2024)</li>
+                <li>Completed <strong>AutoCAD 3D | AutoCAD Civil Architectural</strong> course on Udemy. (2024)</li>
+                <li>Completed <strong>6-hour MIDAS Civil training on Steel Composite Bridge Design</strong>. (2024)</li>
+                <li>Completed <strong>9-hour MIDAS Civil training on PSC Box Girder Bridge Design</strong>. (2024)</li>
+                <li>Completed <strong>5-hour MIDAS Civil training on PSC Composite I Girder Bridge</strong>. (2024)</li>
+                <li>Completed <strong>2-hour MIDAS Civil training on Slab Bridge Design</strong>. (2024)</li>
+                <li>Completed <strong>4-hour course on Introduction to Python</strong> on DataCamp. (2024)</li>
+                <li>Awarded <strong>Executive Diploma in Engineering Management</strong> on Udemy. (2024)</li>
+                <li>Completed <strong>11-hour course on Quality Continuous Improvement in Project Management</strong> on Udemy. (2024)</li>
+            </ul>
+        </div>
+    </section>
+    
+    <section id="achievements" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-trophy mr-3"></i> Achievements & Activities</h2>
+        <div class="card-bg p-8 rounded-xl shadow-2xl space-y-4">
+            <ul class="list-disc ml-6 text-gray-300 space-y-2">
+                <li>Winner at <strong>Engineering Expo 2018</strong> for seismic force comparison using base-isolated model. (2018)</li>
+                <li>2nd Runner-up at <strong>9th Civil Engineering Exhibition-cum-Competition</strong> for presentation on Micro-Hydro Power. (2018)</li>
+                <li>Winner of <strong>Project Demonstration (Civil)</strong> at <strong>Prayog Expo 2018</strong> for Earthquake Simulation Robot Model. (2018)</li>
+            </ul>
+        </div>
+    </section>
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="interests" class="py-10">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-heart mr-3"></i> Interests & Hobbies</h2>
+        <div class="card-bg p-8 rounded-xl shadow-2xl">
+            <p class="text-gray-300 text-lg">
+                Reading Books, Travelling, Cooking, World Affairs, Exploring New Technologies, Meditation, Sustainability
+            </p>
+        </div>
+    </section>
+
+
+    <hr class="border-slate-800 my-16">
+
+    <section id="contact" class="py-10 mb-20">
+        <h2 class="text-4xl font-bold mb-10 text-primary"><i class="fas fa-handshake-angle mr-3"></i> Initiate a Data-Driven Partnership</h2>
+        <div class="card-bg p-8 rounded-xl shadow-2xl max-w-2xl mx-auto border-t-4 border-primary">
+            <p class="text-gray-300 mb-6 text-lg">Let's discuss how data and predictive analytics can optimize your construction processes.</p>
+            <form id="contact-form" class="space-y-4">
+                <div>
+                    <label for="name" class="block text-sm font-medium text-gray-400">Name</label>
+                    <input type="text" id="name" name="name" required class="mt-1 block w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-gray-100">
+                </div>
+                <div>
+                    <label for="email" class="block text-sm font-medium text-gray-400">Email (Required for validation)</label>
+                    <input type="email" id="email" name="email" required class="mt-1 block w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-gray-100">
+                    <p id="email-error" class="text-red-400 text-sm mt-1 hidden"><i class="fas fa-exclamation-circle mr-1"></i> Please enter a valid email address.</p>
+                </div>
+                <div>
+                    <label for="message" class="block text-sm font-medium text-gray-400">Inquiry Focus (e.g., Predictive Scheduling, LCC Analysis)</label>
+                    <textarea id="message" name="message" rows="4" required class="mt-1 block w-full px-4 py-3 bg-slate-700 border border-slate-600 rounded-lg shadow-sm focus:outline-none focus:ring-primary focus:border-primary text-gray-100"></textarea>
+                </div>
+                <button type="submit" class="w-full py-3 px-4 rounded-lg shadow-lg text-lg font-bold text-gray-900 bg-primary hover:bg-secondary focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-primary transition-colors duration-300">
+                    <i class="fas fa-paper-plane mr-2"></i> Send Data Inquiry
+                </button>
+                <div id="form-status" class="mt-4 p-4 rounded-lg hidden font-medium" role="alert"></div>
+            </form>
+        </div>
+    </section>
+
+</main>
+
+<footer class="header-bg p-6 text-center text-gray-400 text-sm border-t border-slate-800">
+    <p>&copy; 2025 Manish Kumar Jha | Construction Data Analyst. Optimized for Data Leaders.</p>
+    <div class="mt-2 text-primary font-medium">
+        Email: <a href="mailto:Manis.jha1@gmail.com" class="hover:text-cyan-400 transition-colors">Manis.jha1@gmail.com</a> | Phone: +91-93727-65562 | LinkedIn: <a href="https://www.linkedin.com/in/er-manish-kumar-jha/" target="_blank" class="hover:text-cyan-400 transition-colors">Manish Kumar Jha</a>
+    </div>
+</footer>
+
+<script>
+    // ----------------------------------------------------------------------
+    // JAVASCRIPT FOR INTERACTIVITY AND UX
+    // ----------------------------------------------------------------------
+
+    /**
+     * Accordion/Expand-Collapse Logic - Hover Enabled
+     */
+    function setupAccordion(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
+
+        // Get all items
+        const items = container.querySelectorAll('.project-item, .experience-item');
+
+        items.forEach(item => {
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('.fa-chevron-down');
+
+            // Expand Function
+            const expand = () => {
+                // Collapse others
+                items.forEach(otherItem => {
+                    if (otherItem !== item) {
+                        const otherContent = otherItem.querySelector('.accordion-content');
+                        const otherIcon = otherItem.querySelector('.fa-chevron-down');
+                        otherContent.style.maxHeight = '0px';
+                        otherContent.classList.remove('active');
+                        otherIcon.classList.remove('rotate-180');
+                    }
+                });
+
+                // Expand current
+                content.style.maxHeight = content.scrollHeight + 'px';
+                content.classList.add('active');
+                icon.classList.add('rotate-180');
+
+                // "9999px" Fix for cut-off content (safe with hover due to mouseleave logic)
+                setTimeout(() => {
+                    if (content.classList.contains('active')) {
+                        content.style.maxHeight = '9999px';
+                    }
+                }, 500);
+            };
+
+            // Collapse Function
+            const collapse = () => {
+                // Reset height for smooth animation
+                content.style.maxHeight = content.scrollHeight + 'px';
+                
+                // Force reflow to ensure the transition happens
+                void content.offsetWidth; 
+
+                // Collapse
+                content.style.maxHeight = '0px';
+                content.classList.remove('active');
+                icon.classList.remove('rotate-180');
+            };
+
+            // Add Hover Event Listeners
+            item.addEventListener('mouseenter', expand);
+            item.addEventListener('mouseleave', collapse);
+        });
+    }
+
+    setupAccordion('project-accordion');
+    setupAccordion('experience-accordion');
+
+
+    /**
+     * Project Filtering Logic
+     */
+    const projectFilters = document.getElementById('project-filters');
+    const projectItems = document.querySelectorAll('.project-item');
+
+    projectFilters.addEventListener('click', (e) => {
+        const target = e.target;
+        if (target.tagName !== 'BUTTON') return;
+        const filterValue = target.getAttribute('data-filter');
+        projectFilters.querySelectorAll('button').forEach(btn => {
+            if (btn === target) { btn.classList.add('active'); } else { btn.classList.remove('active'); }
+        });
+        projectItems.forEach(item => {
+            const categories = item.getAttribute('data-categories');
+            const isMatch = filterValue === 'all' || categories.includes(filterValue);
+            const content = item.querySelector('.accordion-content');
+            const icon = item.querySelector('.fa-chevron-down');
+            
+            // Reset state on filter
+            content.style.maxHeight = '0px';
+            content.classList.remove('active');
+            icon.classList.remove('rotate-180');
+            
+            if (isMatch) {
+                item.style.display = 'block';
+                item.classList.add('animate-fadeIn');
+            } else {
+                item.style.display = 'none';
+                item.classList.remove('animate-fadeIn');
+            }
+        });
+    });
+    document.querySelector('[data-filter="all"]').classList.add('active');
+
+
+    /**
+     * Mobile Menu Toggles & Contact Form
+     */
+    const menuToggle = document.getElementById('menu-toggle');
+    const closeMenu = document.getElementById('close-menu');
+    const mobileMenu = document.getElementById('mobile-menu');
+    const mobileNavLinks = document.querySelectorAll('.mobile-nav-link');
+
+    menuToggle.addEventListener('click', () => {
+        mobileMenu.classList.remove('translate-x-full');
+        mobileMenu.classList.add('translate-x-0');
+    });
+
+    closeMenu.addEventListener('click', () => {
+        mobileMenu.classList.remove('translate-x-0');
+        mobileMenu.classList.add('translate-x-full');
+    });
+
+    mobileNavLinks.forEach(link => {
+        link.addEventListener('click', () => {
+            mobileMenu.classList.remove('translate-x-0');
+            mobileMenu.classList.add('translate-x-full');
+        });
+    });
+
+    /**
+     * Contact Form Validation and Submission Simulation
+     */
+    const contactForm = document.getElementById('contact-form');
+    const emailInput = document.getElementById('email');
+    const emailError = document.getElementById('email-error');
+    const formStatus = document.getElementById('form-status');
+
+    function validateEmail(email) {
+        const re = /^(([^<>()\[\]\\.,;:\s@"]+(\.[^<>()\[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+        return re.test(String(email).toLowerCase());
+    }
+
+    emailInput.addEventListener('input', () => {
+        if (validateEmail(emailInput.value)) {
+            emailError.classList.add('hidden');
+            emailInput.classList.remove('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+            emailInput.classList.add('border-slate-600', 'focus:ring-primary', 'focus:border-primary');
+        } else {
+            emailError.classList.remove('hidden');
+            emailInput.classList.add('border-red-500', 'focus:ring-red-500', 'focus:border-red-500');
+            emailInput.classList.remove('border-slate-600', 'focus:ring-primary', 'focus:border-primary');
+        }
+    });
+
+    contactForm.addEventListener('submit', function(event) {
+        event.preventDefault();
+        
+        if (!validateEmail(emailInput.value)) {
+            emailError.classList.remove('hidden');
+            emailInput.focus();
+            return;
+        }
+
+        formStatus.classList.remove('hidden');
+        formStatus.textContent = 'Sending data inquiry... Please wait.';
+        formStatus.classList.add('bg-slate-700', 'text-gray-300');
+        
+        // Simulate backend submission delay
+        setTimeout(() => {
+            formStatus.classList.remove('bg-slate-700', 'text-gray-300');
+            formStatus.classList.add('bg-green-900', 'text-green-400');
+            formStatus.innerHTML = '<i class="fas fa-check-circle mr-2"></i> Inquiry received! Your data-focused message is appreciated.';
+            contactForm.reset();
+            
+            setTimeout(() => {
+                formStatus.classList.add('hidden');
+            }, 7000);
+
+        }, 1800);
+    });
+</script>
+
+</body>
+</html>
